@@ -1,0 +1,23 @@
+{
+  "name": "lgede unity forum",
+  "short_name": "lgede forum",
+  "description": "A vibrant community platform for Igede people featuring Oju Space, Obi Space, Market Space, Single Girls & Boys Space, lgede Breaking News, Job Opportunities, real-time messaging, and member networking.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#064e3b",
+  "theme_color": "#064e3b",
+  "icons": [
+    {
+      "src": "/app-icon.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/app-icon.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}

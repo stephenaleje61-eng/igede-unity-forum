@@ -1,0 +1,6 @@
+{
+  "name": "lgede unity forum portal",
+  "description": "A vibrant community platform for Igede people featuring Oju Space, Obi Space, Market Space, Single Girls & Boys Space, lgede Breaking News, Job Opportunities, real-time messaging, and member networking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,152 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered member profile on lgede unity forum",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 120 },
+        "photoURL": { "type": "string", "maxLength": 500000 },
+        "bio": { "type": "string", "maxLength": 500 },
+        "location": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 30 },
+        "gender": { "type": "string", "maxLength": 20 },
+        "spaceAffiliation": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "fullName", "email"]
+    },
+    "Post": {
+      "title": "Post",
+      "description": "Community post across spaces including Oju, Obi, Market, Singles, News, and Jobs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "spaceId": { "type": "string", "enum": ["oju", "obi", "market", "singles", "news", "jobs"] },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string", "maxLength": 100 },
+        "authorPhoto": { "type": "string", "maxLength": 500000 },
+        "title": { "type": "string", "maxLength": 200 },
+        "content": { "type": "string", "maxLength": 5000 },
+        "imageUrl": { "type": "string", "maxLength": 500000 },
+        "price": { "type": "string", "maxLength": 50 },
+        "company": { "type": "string", "maxLength": 100 },
+        "jobLocation": { "type": "string", "maxLength": 100 },
+        "applyInfo": { "type": "string", "maxLength": 250 },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "spaceId", "authorId", "authorName", "content"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "User reply or discussion comment on a post",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "postId": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string", "maxLength": 100 },
+        "authorPhoto": { "type": "string", "maxLength": 500000 },
+        "content": { "type": "string", "maxLength": 2000 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "postId", "authorId", "authorName", "content"]
+    },
+    "FriendRequest": {
+      "title": "FriendRequest",
+      "description": "Friend request invitation between two community members",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "senderName": { "type": "string", "maxLength": 100 },
+        "senderPhoto": { "type": "string", "maxLength": 500000 },
+        "receiverName": { "type": "string", "maxLength": 100 },
+        "receiverPhoto": { "type": "string", "maxLength": 500000 },
+        "status": { "type": "string", "enum": ["pending", "accepted", "declined", "cancelled"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "senderId", "receiverId", "status"]
+    },
+    "Friendship": {
+      "title": "Friendship",
+      "description": "Confirmed friendship relationship between two members",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "user1Id": { "type": "string" },
+        "user2Id": { "type": "string" },
+        "users": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "user1Id", "user2Id", "users"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "1-on-1 private messaging room between friends",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "participants": { "type": "array" },
+        "lastMessage": { "type": "string", "maxLength": 1000 },
+        "lastMessageSenderId": { "type": "string" },
+        "lastMessageTimestamp": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["id", "participants"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "Individual chat message sent between friends",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "conversationId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string", "maxLength": 100 },
+        "senderPhoto": { "type": "string", "maxLength": 500000 },
+        "text": { "type": "string", "maxLength": 3000 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "conversationId", "senderId", "senderName", "text"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Profiles for registered community members"
+    },
+    "/posts/{postId}": {
+      "schema": { "$ref": "#/entities/Post" },
+      "description": "Posts across all community spaces"
+    },
+    "/posts/{postId}/comments/{commentId}": {
+      "schema": { "$ref": "#/entities/Comment" },
+      "description": "Comments attached to a specific post"
+    },
+    "/friend_requests/{requestId}": {
+      "schema": { "$ref": "#/entities/FriendRequest" },
+      "description": "Connection requests between members"
+    },
+    "/friendships/{friendshipId}": {
+      "schema": { "$ref": "#/entities/Friendship" },
+      "description": "Confirmed friendships enabling private chat"
+    },
+    "/conversations/{conversationId}": {
+      "schema": { "$ref": "#/entities/Conversation" },
+      "description": "Private direct message channels"
+    },
+    "/conversations/{conversationId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Encrypted direct messages in a conversation"
+    }
+  }
+}
